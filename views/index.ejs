@@ -1,0 +1,31 @@
+<!-- 
+=========================
+index.ejs
+Showing all patients in the database
+========================= 
+-->
+<% include ./partials/header %>
+
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <% patients.forEach(function(patient) { %>
+        <div class="card col-md-3 m-2 border-dark">
+            <div class="card-body">
+                <h3 class="card-title"><%= patient.personalInfo.firstName%> <%=patient.personalInfo.lastName%></h5>
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Gender: </strong><%= patient.personalInfo.gender%></li>
+                <li class="list-group-item"><strong>DOB: </strong><%= patient.personalInfo.dob%></li>
+                <li class="list-group-item"><strong>HC: </strong><%= patient.personalInfo.healthCard%></li>
+                <li class="list-group-item"><strong>Diagnosis: </strong><%= patient.diagnosis.diagnosis%> </li>
+            </ul>
+            <div class="card-body text-center">
+                <a href="/patients/<%=patient._id%>/edit" class="btn btn-dark btn-lg">View File</a>
+            </div>
+      </div>
+        <% }); %>
+    </div>
+</div>
+
+
+<% include ./partials/footer %>

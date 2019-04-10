@@ -1,0 +1,495 @@
+<!-- 
+=========================
+edit.ejs
+Editing patient file form, where prediction occurs
+========================= 
+-->
+
+<% include ./partials/header %>
+<form action="/patients/<%=patient._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="list-group mt-3 sticky-top">
+          <a href="#personalInfo"><li class="list-group-item list-group-item-action">Personal Information</li></a>
+          <a href="#symptomsSection"><li class="list-group-item list-group-item-action">Symptoms</li></a>
+          <a href="#imagingSection"><li class="list-group-item list-group-item-action">Imaging</li></a>
+          <a href="#predictionSection"><li class="list-group-item list-group-item-action">Predictions</li></a>
+          <a href="#diagnosisSection"><li class="list-group-item list-group-item-action">Diagnosis</li></a>
+        </div>
+      </div>
+
+      <div class="col-md-10"  data-spy="scroll" data-target="#list-example" data-offset="0">
+        <div class="card mt-3" id="personalInfo">
+          <div class="card-header text-white bg-dark">
+            <h2>Personal Information</h2>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-5">
+                <label for="firstName">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  name="patient[personalInfo][firstName]"
+                  placeholder="First Name"
+                  value="<%=patient.personalInfo.firstName%>"
+                />
+              </div>
+              <div class="form-group col-md-5">
+                <label for="lastName">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  name="patient[personalInfo][lastName]"
+                  placeholder="Last Name"
+                  value="<%=patient.personalInfo.lastName%>"
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="gender">Gender</label>
+                <select
+                  class="form-control"
+                  id="gender"
+                  name="patient[personalInfo][gender]"
+                >
+                <% if(patient.personalInfo.gender == "Male") { %>
+                  <option value="Male" selected>Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                <% } else if(patient.personalInfo.gender == "Female") {%>
+                  <option value="Male">Male</option>
+                  <option value="Female" selected>Female</option>
+                  <option value="Other">Other</option>
+                <% } else {%>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other" selected>Other</option>
+                <%}%>
+                  
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="healthCard">Health Card Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="healthCard"
+                  name="patient[personalInfo][healthCard]"
+                  placeholder="Health Card Number"
+                  value="<%=patient.personalInfo.healthCard%>"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="address">Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address"
+                  name="patient[personalInfo][address]"
+                  placeholder="Address"
+                  value="<%=patient.personalInfo.address%>"
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="phoneNumber">Phone Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phoneNumber"
+                  name="patient[personalInfo][phoneNumber]"
+                  placeholder="Phone Number"
+                  value="<%=patient.personalInfo.phoneNumber%>"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="patient[personalInfo][email]"
+                  placeholder="Email"
+                  value="<%=patient.personalInfo.email%>"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="dob">Date of Birth</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="dob"
+                  name="patient[personalInfo][dob]"
+                  value="<%=patient.personalInfo.dob%>"
+                />
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <!--Turn this into a select when list of insurances is collected-->
+                <label for="insurance">Insurance</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="insurance"
+                  name="patient[personalInfo][insurance]"
+                  placeholder="Insurance"
+                  value="<%=patient.personalInfo.insurance%>"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="groupNumber">Group Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="groupNumber"
+                  name="patient[personalInfo][groupNumber]"
+                  placeholder="Group Number"
+                  value="<%=patient.personalInfo.groupNumber%>"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="idNumber">Identification Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idNumber"
+                  name="patient[personalInfo][idNumber]"
+                  placeholder="Identification Number"
+                  value="<%=patient.personalInfo.idNumber%>"
+                />
+              </div>
+
+              <div class="form-group col-md-2">
+                <label for="carrier">Carrier</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="carrier"
+                  name="patient[personalInfo][carrier]"
+                  placeholder="Carrier"
+                  value="<%=patient.personalInfo.carrier%>"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3" id="symptomsSection">
+          <div class="card-header text-white bg-dark">
+            <h2>Symptoms</h2>
+          </div>
+          <div class="card-body" id="symptomSection">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="symptomName"
+                  name="patient[symptoms][symptomName]"
+                  placeholder="Add a symptom"
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <select
+                  class="form-control"
+                  id="symptomSeverity"
+                  name="patient[symptoms][symptomSeverity]"
+                >
+                  <option selected disable hidden value="">Select Severity</option>
+                  <option value="Mild" selected>Mild</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="Severe">Severe</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <textarea
+                  class="form-control"
+                  rows="1"
+                  id="symptomNotes"
+                  name="patient[symptoms][symptomNotes]"
+                  placeholder="Symptom Notes"
+                ></textarea>
+              </div>
+              <div class="form-group col-md-2">
+                <button type="button" class="btn btn-dark" id="addSymptom">
+                  Add Symptom
+                </button>
+              </div>
+            </div>
+            
+
+            <% patient.symptoms.forEach(function(symptom) { %>
+            <hr>
+              <div class="form-row">
+                <div class="form-group col-md-4">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="symptomName"
+                    name="patient[symptoms][symptomName]"
+                    placeholder="Add a symptom"
+                    value = "<%=symptom.symptomName%>"
+                  />
+                </div>
+                <div class="form-group col-md-2">
+                  <select 
+                    class="form-control"
+                    id="symptomSeverity"
+                    name="patient[symptoms][symptomSeverity]"
+                  >
+                  <option selected disable hidden value="">Select Severity</option>
+                  <% if(symptom.symptomSeverity === "Mild") { %>
+                    <option value="Mild" selected>Mild</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Severe">Severe</option>
+                  <%} else if(symptom.symptomSeverity === "Moderate") { %>
+                    <option value="Mild">Mild</option>
+                    <option value="Moderate" selected>Moderate</option>
+                    <option value="Severe">Severe</option>
+                  <% } else if(symptom.symptomSeverity === "Severe"){ %>
+                    <option value="Mild">Mild</option>
+                    <option value="Moderate">Moderate</option>
+                    <option value="Severe" selected>Severe</option>
+                  <%} %>
+                    
+                  </select>
+                </div>
+                <div class="form-group col-md-4">
+                  <textarea
+                    class="form-control"
+                    rows="1"
+                    id="symptomNotes"
+                    name="patient[symptoms][symptomNotes]"
+                    placeholder="Symptom Notes"
+                  ><%= symptom.symptomNotes %></textarea>
+                </div>
+              </div>
+              
+            <% }) %>
+            </div>
+          </div>
+        
+
+        <div class="card mt-3" id="imagingSection">
+          <div class="card-header text-white bg-dark">
+            <h2>Imaging</h2>
+          </div>
+          <div class="card-body" id="imageSection">
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <select
+                  class="form-control"
+                  id="imageType"
+                  name="patient[image][imageType]"
+                >
+                  <option value="Ultrasound">Ultrasound</option>
+                  <option value="MRI">MRI</option>
+                  <option value="CT Scan">CT Scan</option>
+                  <option value="X-ray">X-ray</option>
+                  <option value="PET Scan">PET Scan</option>
+                  <option value="Blood Sample">Blood Sample</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <select
+                  class="form-control"
+                  id="imagePart"
+                  name="patient[image][imagePart]"
+                >
+                  <option value="Brain">Brain</option>
+                  <option value="Chest">Chest</option>
+                  <option value="Eye">Eye</option>
+                  <option value="Blood">Blood</option>
+                </select>
+              </div>
+              <div class="custom-file col-md-4">
+                <input
+                  type="file"
+                  class="custom-file-input customFile"
+                  name="imaging"
+                />
+                <label
+                  class="custom-file-label customFileLabel"
+                  for="customFile"
+                  >Choose File</label
+                >
+              </div>
+              <div class="form-group col-md-2">
+                <button type="button" class="btn btn-dark" id="addImageOrig">
+                  Add Image
+                </button>
+              </div>
+              <div class="form-row p-0 m-0">
+              <% if(patient.image != null) { 
+                  var bloodSamples = [];
+                  var lungImages = []
+                  for(var i = 0; i < patient.image.length; i++) { %>
+                    <div class = "card col-md-3 p-0 my-0 mx-1">
+                      <div class="card card-body p-0 m-0">
+                        <img style="height:100%" src="/images/<%=patient.image[i]._id%>" alt="hello">
+                      </div>
+                      <div class="card card-footer bg-dark text-center text-white"> 
+                        <% if(patient.image[i].image.imageType == "Blood Sample") {%>
+                          <h5><%=patient.image[i].image.imageType%></h5>
+                        <%} else {%>
+                          <h5><%=patient.image[i].image.imagePart%>  <%= patient.image[i].image.imageType%></h5>
+                        <%}
+                        
+                        if(patient.image[i].image.imagePart == "Blood" && patient.image[i].image.imageType == "Blood Sample") {
+                          bloodSamples.push(patient.image[i].image.filename)
+                        } else if(patient.image[i].image.imagePart == "Chest" && (patient.image[i].image.imageType == "X-ray" || patient.image[i].image.imageType == "xray")) {
+                          lungImages.push(patient.image[i].image.filename)
+                        }
+                        %>
+                        
+                      </div>
+                    </div>
+                <%}
+                }%>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3" id="predictionSection">
+          <div class="card-header text-white bg-dark">
+            <h2>Predictions</h2>
+          </div>
+          <div class="card-body" id="predSection">
+            <div class="form-row">
+              <div class="form-group col-md-10">
+                <select
+                  class="form-control"
+                  id="predictionType"
+                  name="predictionType"
+                  
+                >
+                  <option selected hidden disabled value="">Choose Desired Disease Prediction...</option>
+                  <option value="Malaria">Malaria</option>
+                  <option value="Tuberculosis">Tuberculosis</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <button onclick="getPred('<%=bloodSamples%>', '<%=lungImages%>')" type="button" class="btn btn-dark" id="getPrediction">
+                  Get Prediction
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3" id="diagnosisSection">
+          <div class="card-header text-white bg-dark">
+            <h2>Diagnosis</h2>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <input
+                  type = "text"
+                  class="form-control"
+                  id="diagnosis"
+                  name="patient[diagnosis][diagnosis]"
+                  placeholder="Diagnosis"
+                  value="<%=patient.diagnosis.diagnosis%>"
+                >
+              </div>
+
+              <div class="form-group col-md-2">
+                <select
+                  class="form-control"
+                  id="diagnosisSeverity"
+                  name="patient[diagnosis][diagnosisSeverity]"
+                
+                  value= "<%= patient.diagnosis.diagnosisSeverity %>"
+                >
+                <option selected disable hidden value="">Select Severity</option>
+                <% if(patient.diagnosis.diagnosisSeverity === "Mild") { %>
+                <option value="Mild" selected>Mild</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Severe">Severe</option>
+              <%} else if(patient.diagnosis.diagnosisSeverity === "Moderate") { %>
+                <option value="Mild">Mild</option>
+                <option value="Moderate" selected>Moderate</option>
+                <option value="Severe">Severe</option>
+              <% } else { %>
+                <option value="Mild">Mild</option>
+                <option value="Moderate">Moderate</option>
+                <option value="Severe" selected>Severe</option>
+              <%} %>
+                </select>
+              </div>
+
+              <div class="form-group col-md-4">
+                <textarea
+                  class="form-control"
+                  rows="1"
+                  id="diagnosisNotes"
+                  name="patient[diagnosis][diagnosisNotes]"
+                  placeholder="Diagnosis Notes"
+                ><%= patient.diagnosis.diagnosisNotes%></textarea>
+              </div>
+
+              <div class="form-group col-md-2">
+                <button type="submit" class="btn btn-dark" id="saveFile">
+                  Save File
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        
+<script src="/javascript/main.js"></script>
+<script>
+  function getPred(bloodSamples, lungImages) {
+    // Check which prediction
+    var predType = $("#predictionType").val()
+    if(predType == "Malaria") {
+      $.ajax({
+        method: "GET",
+        url: "http://localhost:5000/predict/malaria",
+        data: {image:bloodSamples}
+      }).done(function(percentageMal) {
+        $("#predSection").append('<div class="alert alert-success" role="alert">There is a ' + percentageMal + ' this patient has malaria</div>')
+      })
+    } else if(predType == "Tuberculosis") {
+      $.ajax({
+        method: "GET",
+        url: "http://localhost:5000/predict/tuberculosis",
+        data: {image:lungImages}
+      }).done(function(percentageTub) {
+        $("#predSection").append('<div class="alert alert-primary" role="alert">There is a ' + percentageTub + ' this patient has tuberculosis</div>')
+        }) 
+    } else {
+      alert("Select disease to be predicted")
+    } 
+    }
+    
+    
+</script>
+    </body>
+</html>

@@ -1,0 +1,85 @@
+<!-- 
+=========================
+database.ejs
+Showing all patients in the database organized by disease
+De-identified to keep patient confidentiality 
+========================= 
+-->
+
+<% include ./partials/header %>
+    <div class="jumbotron-fluid bg-primary text-white text-center pb-2 mb-2">
+        <div class="container">
+           <h1 class="display-3">HealthNet Public Database</h1>
+            <p class="lead">At HealthNet, we believe in the power of open-source. That is why we decided to allow the public to have access to our de-identified patient data. Use this data for things such as machine learning applications, case studies, or public health research</p>
+        </div>
+    </div>
+    <div class="container">
+        <%diseases.forEach(function(disease) { %>
+            <div>
+                <h1 class="d-inline"><%=disease%></h1>
+                <button class="btn btn-dark float-right d-inline mb-0"> <i class="fas fa-download"></i> Download Patient Data</button>
+           <div>
+            
+            <table class="table table-bordered mb-5">
+                <thead>
+                    <tr>
+                        <th scope="col">PatientID</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Age</th>
+                        <th scope="col">Symptoms</th>
+                        <th scope="col">Imaging</th>
+                        <th scope="col">Diagnosis</th>
+                    </tr>
+                </thead>
+                <tbody>
+                
+                <% for(var i = 0; i < patients.length; i++) {  %>
+                    <% if(patients[i].diagnosis.diagnosis == disease) {
+                        var dob = new Date(patients[i].personalInfo.dob)
+                        var today_date = new Date()
+                        var age = today_date.getFullYear() - dob.getFullYear();
+                        var m = today_date.getMonth() - dob.getMonth();
+                        if (m < 0 || (m === 0 && today_date.getDate() < dob.getDate())) 
+                        {
+                            age--;
+                        }
+                    %>
+                        <tr>
+                            <td><%=patients[i]._id%></td>
+                            <td><%=patients[i].personalInfo.gender%></td>
+                            <td><%=age%></td>
+                            <% if(patients[i].symptoms != []) {%>
+                                <td>
+                                <% patients[i].symptoms.forEach(function(symptom) {%>
+                                    <%=symptom.symptomSeverity%> <%=symptom.symptomName%>,
+                                <%})%>
+                                </td>
+                            <%} else { %>
+                                <td></td>
+                            <% } %>
+
+                            <% if(patients[i].image != null && patients[i].image != []) { %>
+                                <td>
+                                <%patients[i].image.forEach(function(image) {%>
+                                    <%=image.image.imagePart%> <%=image.image.imageType%>,
+                                <% }) %>
+                                </td>
+                            <% } else { %>
+                                <td></td>
+                            <% } %>
+                            <td><%=patients[i].diagnosis.diagnosis%></td>
+                            
+                        </tr>
+                    <% } %>
+                    
+                <% }%>
+                    
+                </tbody>
+                
+            </table>
+
+        <%})%>
+        
+    </div>
+    
+<% include ./partials/footer %>

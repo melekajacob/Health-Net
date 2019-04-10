@@ -1,0 +1,346 @@
+<!-- 
+=========================
+new.ejs
+Form for creating new patient
+========================= 
+-->
+<% include ./partials/header %>
+<form action="/patients" method="POST" enctype="multipart/form-data">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <div class="list-group mt-3 sticky-top">
+          <a href="#personalInfo"><li class="list-group-item list-group-item-action">Personal Information</li></a>
+          <a href="#symptomsSection"><li class="list-group-item list-group-item-action">Symptoms</li></a>
+          <a href="#imagingSection"><li class="list-group-item list-group-item-action">Imaging</li></a>
+          <a href="#predictionSection"><li class="list-group-item list-group-item-action">Predictions</li></a>
+          <a href="#diagnosisSection"><li class="list-group-item list-group-item-action">Diagnosis</li></a>
+          </div>
+      </div>
+
+      <div class="col-md-10" data-spy="scroll" data-target="#list-example" data-offset="0">
+        <div class="card mt-3" id="personalInfo">
+          <div class="card-header text-white bg-dark">
+            <h2>Personal Information</h2>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-5">
+                <label for="firstName">First Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="firstName"
+                  name="patient[personalInfo][firstName]"
+                  placeholder="First Name"
+                />
+              </div>
+              <div class="form-group col-md-5">
+                <label for="lastName">Last Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="lastName"
+                  name="patient[personalInfo][lastName]"
+                  placeholder="Last Name"
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <label for="gender">Gender</label>
+                <select
+                  class="form-control"
+                  id="gender"
+                  name="patient[personalInfo][gender]"
+                >
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label for="healthCard">Health Card Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="healthCard"
+                  name="patient[personalInfo][healthCard]"
+                  placeholder="Health Card Number"
+                />
+              </div>
+              <div class="form-group col-md-6">
+                <label for="address">Address</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="address"
+                  name="patient[personalInfo][address]"
+                  placeholder="Address"
+                />
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label for="phoneNumber">Phone Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="phoneNumber"
+                  name="patient[personalInfo][phoneNumber]"
+                  placeholder="Phone Number"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="patient[personalInfo][email]"
+                  placeholder="Email"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="dob">Date of Birth</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="dob"
+                  name="patient[personalInfo][dob]"
+                />
+              </div>
+            </div>
+
+            <hr />
+
+            <div class="form-row">
+              <div class="form-group col-md-2">
+                <label for="insurance">Insurance</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="insurance"
+                  name="patient[personalInfo][insurance]"
+                  placeholder="Insurance"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="groupNumber">Group Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="groupNumber"
+                  name="patient[personalInfo][groupNumber]"
+                  placeholder="Group Number"
+                />
+              </div>
+
+              <div class="form-group col-md-4">
+                <label for="idNumber">Identification Number</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="idNumber"
+                  name="patient[personalInfo][idNumber]"
+                  placeholder="Identification Number"
+                />
+              </div>
+
+              <div class="form-group col-md-2">
+                <label for="carrier">Carrier</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="carrier"
+                  name="patient[personalInfo][carrier]"
+                  placeholder="Carrier"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3" id="symptomsSection">
+          <div class="card-header text-white bg-dark">
+            <h2>Symptoms</h2>
+          </div>
+          <div class="card-body" id="symptomSection">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="symptomName"
+                  name="patient[symptoms][symptomName]"
+                  placeholder="Add a symptom"
+                />
+              </div>
+              <div class="form-group col-md-2">
+                <select
+                  class="form-control"
+                  id="symptomSeverity"
+                  name="patient[symptoms][symptomSeverity]"
+                >
+                  <option selected disable hidden value="">Select Severity</option>
+                  <option value="Mild">Mild</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="Severe">Severe</option>
+                </select>
+              </div>
+              <div class="form-group col-md-4">
+                <textarea
+                  class="form-control"
+                  rows="1"
+                  id="symptomNotes"
+                  name="patient[symptoms][symptomNotes]"
+                  placeholder="Symptom Notes"
+                ></textarea>
+              </div>
+              <div class="form-group col-md-2">
+                <button type="button" class="btn btn-dark" id="addSymptom">
+                  Add Symptom
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3" id="imagingSection">
+          <div class="card-header text-white bg-dark">
+            <h2>Imaging</h2>
+          </div>
+          <div class="card-body" id="imageSection">
+            <div class="form-row">
+              <div class="form-group col-md-3">
+                <select
+                  class="form-control"
+                  id="imageType"
+                  name="patient[image][imageType]"
+                >
+                  <option value="Ultrasound">Ultrasound</option>
+                  <option value="MRI">MRI</option>
+                  <option value="CT Scan">CT Scan</option>
+                  <option value="X-ray">X-ray</option>
+                  <option value="PET Scan">PET Scan</option>
+                  <option value="Blood Sample">Blood Sample</option>
+                </select>
+              </div>
+              <div class="form-group col-md-3">
+                <select
+                  class="form-control"
+                  id="imagePart"
+                  name="patient[image][imagePart]"
+                >
+                  <option value="Brain">Brain</option>
+                  <option value="Chest">Chest</option>
+                  <option value="Eye">Eye</option>
+                  <option value="Blood">Blood</option>
+                </select>
+              </div>
+              <div class="custom-file col-md-4">
+                <input
+                  type="file"
+                  class="custom-file-input customFile"
+                  name="imaging"
+                />
+                <label
+                  class="custom-file-label customFileLabel"
+                  for="customFile"
+                  >Choose file</label
+                >
+              </div>
+              <div class="form-group col-md-2">
+                <button type="button" class="btn btn-dark" id="addImageOrig" >
+                  Add Image
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3" id="predictionSection">
+          <div class="card-header text-white bg-dark">
+            <h2>Predictions</h2>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-10">
+                <select
+                  class="form-control"
+                  id="predictionType"
+                  name="predictionType"
+                >
+                  <option selected disabled hidden>Choose Desired Disease Prediction...</option>
+                  <option disabled>Malaria</option>
+                  <option disabled>Diabetic Retinopathy</option>
+                  <option disabled>Tuberculosis</option>
+                </select>
+              </div>
+              <div class="form-group col-md-2">
+                <button type="button" class="btn btn-dark" id="getPrediction">
+                  Get Prediction
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card mt-3" id="diagnosisSection">
+          <div class="card-header text-white bg-dark">
+            <h2>Diagnosis</h2>
+          </div>
+          <div class="card-body">
+            <div class="form-row">
+              <div class="form-group col-md-4">
+              <input
+                type = "text"
+                class="form-control"
+                id="diagnosis"
+                name="patient[diagnosis][diagnosis]"
+                placeholder="Diagnosis Notes"
+              />
+            </div>
+
+              <div class="form-group col-md-2">
+                <select
+                  class="form-control"
+                  id="diagnosisSeverity"
+                  name="patient[diagnosis][diagnosisSeverity]"
+                >
+                  <option selected disable hidden value="">Select Severity</option>
+                  <option value="Mild">Mild</option>
+                  <option value="Moderate">Moderate</option>
+                  <option value="Severe">Severe</option>
+                </select>
+              </div>
+
+              <div class="form-group col-md-4">
+                <textarea
+                  class="form-control"
+                  rows="1"
+                  id="diagnosisNotes"
+                  name="patient[diagnosis][diagnosisNotes]"
+                  placeholder="Diagnosis Notes"
+                ></textarea>
+              </div>
+
+              <div class="form-group col-md-2">
+                <button type="submit" class="btn btn-dark" id="saveFile">
+                  Save File
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<% include ./partials/footer %>
